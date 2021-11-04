@@ -7,7 +7,7 @@ $dbName     = "pedidos";
 
 
 
-$con = pg_connect("host=167.99.158.191 dbname=starbank user=desarrollo password=uthdesarrollo2021*");
+$con = pg_connect("host=localhost dbname=starbank user=desarrollo password=uthdesarrollo2021*");
 
 
 /*
