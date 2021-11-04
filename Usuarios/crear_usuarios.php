@@ -1,21 +1,10 @@
 <?php 
-
+header('Access-Control-Allow-Origin: *');
+header("Access-Control-Allow-Headers: *");
 include "../conexion.php";
-$postdata = file_get_contents("php://input"); 
-$request = json_decode($postdata);
-$imagen = $request->url_foto;
+$postdata = file_get_contents("php://input");  
 
-$idImagen = uniqid();
-$folderPath = "../imagenes/";
-$image_parts = explode(";base64,", $imagen);
-$image_type_aux = explode("image/", $image_parts[0]);
-$image_type = $image_type_aux[1];
-$image_base64 = base64_decode($image_parts[1]);
-$file = $folderPath . $idImagen . '.png';
-file_put_contents($file, $image_base64);   
-$ruta = "http://167.99.158.191/Api_pedidos_ProyectoFinal/imagenes/". $idImagen . '.png';
-
-$sql_query = "SELECT  public.ft_insertar_usuario('".$postdata."' , '".$ruta."')";
+$sql_query = "SELECT  public.ft_create_user_account('".$postdata."')";
 
 if (pg_send_query($con, $sql_query)) {
     $res=pg_get_result($con);
@@ -23,9 +12,8 @@ if (pg_send_query($con, $sql_query)) {
       $state = pg_result_error_field($res, PGSQL_DIAG_SQLSTATE);
       if ($state==0) {
             $datos = pg_fetch_all($res);
-            $variable = (boolean)$datos[0]["ft_insertar_usuario"];
-            $resultado = array('estado' => $variable);
-            echo json_encode($resultado) ;    
+            $variable = $datos[0]["ft_create_user_account"]; 
+            echo  $resultado ;    
             }
       else {
         // some error happened
