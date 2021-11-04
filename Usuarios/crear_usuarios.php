@@ -13,7 +13,7 @@ if (pg_send_query($con, $sql_query)) {
       if ($state==0) {
             $datos = pg_fetch_all($res);
             $variable = $datos[0]["ft_create_user_account"]; 
-            echo  $resultado ;    
+            echo  $variable ;    
             }
       else {
         // some error happened
