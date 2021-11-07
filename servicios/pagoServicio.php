@@ -4,7 +4,7 @@ header("Access-Control-Allow-Headers: *");
 include "../conexion.php";
 $postdata = file_get_contents("php://input");  
 
-$sql_query = "SELECT  public.ft_proc_pago_servicio()";
+$sql_query = "SELECT  public.ft_proc_pago_servicio('".$postdata."')";
 
 if (pg_send_query($con, $sql_query)) {
     $res=pg_get_result($con);
